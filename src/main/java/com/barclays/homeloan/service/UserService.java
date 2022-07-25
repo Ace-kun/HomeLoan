@@ -19,4 +19,16 @@ public class UserService {
 		return userRepository.findAll();
 	}
 
+	public User addAccount(User user) {
+		
+		User newUser = new User();
+		newUser.setEmail(user.getEmail());
+		newUser.setName(user.getName());
+		newUser.setPassword(user.getPassword());
+		
+		return userRepository.save(newUser);
+		
+		
+	}
+
 }

@@ -10,45 +10,47 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.barclays.homeloan.entity.SavingAccount;
 import com.barclays.homeloan.entity.User;
-import com.barclays.homeloan.repository.UserRepository;
-import com.barclays.homeloan.service.UserService;
+import com.barclays.homeloan.repository.SavingRepository;
+import com.barclays.homeloan.service.SavingService;
+
 
 @RestController
-public class userController {
+public class SavingsController {
+
 	
-	
-	private final Logger logger = LoggerFactory.getLogger(this.getClass());
+private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 
 	
 	@Autowired
-	UserRepository userRepository;
+	SavingRepository savingRepository;
 	
 	@Autowired
-	UserService userService;
+	SavingService savingService;
 	
-	@GetMapping(value = "/users")
+	@GetMapping(value = "/savingAccounts")
 	public ResponseEntity<?> findAll(){
 		try {
 			logger.info("api running !!");
-			return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.OK);
+			return new ResponseEntity<>(savingService.getAllAccounts(), HttpStatus.OK);
 		}
 		catch(Exception e){
-			logger.error("Error occurred while fetching all users data: " + e.getMessage());
-            return new ResponseEntity<>("Error occurred while fetching all users data", HttpStatus.INTERNAL_SERVER_ERROR);
+			logger.error("Error occurred while fetching all Acount data: " + e.getMessage());
+            return new ResponseEntity<>("Error occurred while fetching all Savings account data", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
-	@PostMapping(value = "/createUser")
-	public ResponseEntity<?> addAccount(@RequestBody User user) {
+	@PostMapping(value = "/addSavingAccount")
+	public ResponseEntity<?> addAccount(@RequestBody SavingAccount acc) {
 		try {
-			return new ResponseEntity<>(userService.addAccount(user), HttpStatus.CREATED);
+			return new ResponseEntity<>(savingService.addAccount(acc), HttpStatus.CREATED);
 		}
 		catch(Exception e){
 			logger.error("Error occurred while adding Account: " + e.getMessage());
             return new ResponseEntity<>("Error occurred while adding Account", HttpStatus.INTERNAL_SERVER_ERROR);
         }
 	}
-
+	
 }
