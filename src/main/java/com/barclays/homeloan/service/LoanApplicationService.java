@@ -1,6 +1,7 @@
 package com.barclays.homeloan.service;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,7 +48,16 @@ public class LoanApplicationService {
 
 	public String validate(int id) {
 		
-		LoanApplication app = loanAppRepository.findById(id).get();
+		
+		Optional<LoanApplication> newApp = loanAppRepository.findById(id);
+		
+		if(newApp.isEmpty()) {
+			System.out.println("in");
+			return null;
+		}
+		
+		LoanApplication app = newApp.get();
+		
 		int monthlySalary = app.getMonthlySalary();
 		if(monthlySalary*50<app.getLoanAmount()) {
 			

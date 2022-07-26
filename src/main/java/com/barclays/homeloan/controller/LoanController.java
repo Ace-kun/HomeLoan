@@ -23,26 +23,6 @@ public class LoanController {
 	LoanService loanService;
 	
 	
-//	@PostMapping(value = "/addSavingAccount")
-//	public ResponseEntity<?>(@RequestBody LoanAccount acc) {
-//		try {
-//			return new ResponseEntity<>(savingService.addAccount(acc), HttpStatus.CREATED);
-//		}
-//		catch(Exception e){
-//			logger.error("Error occurred while adding Account: " + e.getMessage());
-//            return new ResponseEntity<>("Error occurred while adding Account", HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
-//	}
-
-//	@PostMapping(value = "/addSavingAccount")
-//	public ResponseEntity<?> addAccount(@RequestBody SavingAccount acc) {
-//		try {
-//			return new ResponseEntity<>(savingService.addAccount(acc), HttpStatus.CREATED);
-//		}
-//		catch(Exception e){
-//			logger.error("Error occurred while adding Account: " + e.getMessage());
-//            return new ResponseEntity<>("Error occurred while adding Account", HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
-//	}
+	
 
 }

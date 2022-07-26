@@ -44,7 +44,9 @@ public class LoanApplicationController {
 	@GetMapping(value = "/validate/{id}")
 	public ResponseEntity<?> validateApplication(@PathVariable int id){
 		try {
-			
+			if(loanAppService.validate(id)==null) {
+				return new ResponseEntity<>("LoanApplication with given Id not present", HttpStatus.BAD_REQUEST);
+			}
 			return new ResponseEntity<>(loanAppService.validate(id), HttpStatus.OK);
 		}
 		catch(Exception e){
@@ -53,15 +55,5 @@ public class LoanApplicationController {
 		}
 	}
 	
-//	@PostMapping(value = "/addSavingAccount")
-//	public ResponseEntity<?> addAccount(@RequestBody SavingAccount acc) {
-//		try {
-//			return new ResponseEntity<>(savingService.addAccount(acc), HttpStatus.CREATED);
-//		}
-//		catch(Exception e){
-//			logger.error("Error occurred while adding Account: " + e.getMessage());
-//            return new ResponseEntity<>("Error occurred while adding Account", HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
-//	}
 
 }
