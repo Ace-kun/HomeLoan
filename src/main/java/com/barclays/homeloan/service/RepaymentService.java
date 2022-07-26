@@ -38,6 +38,13 @@ public class RepaymentService {
 
 	}
 
+	public List<Repayment> getEmiByLoanId(int loan_id) {
+		Loan loan = loanRepository.findById(loan_id).get();
+		List<Repayment> repayment = repayRepository.findByLoanId(loan);
+		return repayment;
+
+	}
+
 	public Repayment payEmi(int id) {
 
 		Loan loan = loanRepository.findById(id).get();
