@@ -1,5 +1,13 @@
 package com.barclays.homeloan.controller;
 
+import java.io.IOException;
+import java.io.Writer;
+import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVPrinter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.barclays.homeloan.entity.Repayment;
 import com.barclays.homeloan.repository.RepaymentRepository;
 import com.barclays.homeloan.service.RepaymentService;
 import com.barclays.homeloan.utils.TenureReqUtil;
@@ -41,6 +50,24 @@ public class RepaymentController {
             return new ResponseEntity<>("Error occurred while fetching all EMIs data", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+	
+	@GetMapping("/getEmiList/export/{loan_id}")
+    public void exportToCSV(HttpServletResponse response, @PathVariable int loan_id) throws IOException {
+		Writer writer = response.getWriter();
+
+        List<Repayment> repay_list = repayService.getEmiByLoanId(loan_id);
+
+        response.setContentType("text/csv");
+		response.addHeader("Content-Disposition","attachment; filename=\"Loan_Report.csv\"");
+        try (CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT)) {
+        	csvPrinter.printRecord("ID", "Date", "EMI", "Interest Amount", "Outstanding", "Principal Amount", "Status");
+            for (Repayment repay : repay_list) {
+                csvPrinter.printRecord(repay.getId(), repay.getDate(), repay.getEmi(), repay.getInterestamount(), repay.getOutstanding(), repay.getPrincipalamount(), repay.getStatus());
+            }
+        } catch (IOException e) {
+            logger.error("Error While writing CSV ", e);
+        }
+    }
 	
 	@GetMapping(value = "/payEmi/{id}")
 	public ResponseEntity<?> payEmi(@PathVariable int id){

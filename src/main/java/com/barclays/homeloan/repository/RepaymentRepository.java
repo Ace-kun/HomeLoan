@@ -14,5 +14,6 @@ public interface RepaymentRepository extends JpaRepository<Repayment,Integer> {
 	
 	
 	List<Repayment> findByLoanIdAndStatus(Loan loanId, String status);
+	List<Repayment> findByLoanId(Loan loan_id);
 	
 }
