@@ -12,7 +12,7 @@ public interface RepaymentRepository extends JpaRepository<Repayment,Integer> {
 
 //	@Query(value = "select * from savingaccount s where s.email = ?1", nativeQuery = true)
 	
-
+	
 	List<Repayment> findByLoanIdAndStatus(Loan loanId, String status);
 	
 }
