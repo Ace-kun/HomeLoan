@@ -11,16 +11,22 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.barclays.homeloan.entity.SavingAccount;
-import com.barclays.homeloan.entity.User;
 import com.barclays.homeloan.repository.SavingRepository;
 import com.barclays.homeloan.service.SavingService;
 
-
+/**
+ * SavingsController(working::)
+ * 
+ * @author ace
+ *
+ */
 @RestController
 public class SavingsController {
 
-	
-private final Logger logger = LoggerFactory.getLogger(this.getClass());
+	/**
+	 * logger
+	 */
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 
 	
@@ -42,6 +48,11 @@ private final Logger logger = LoggerFactory.getLogger(this.getClass());
 		}
 	}
 	
+	/**
+	 * addAccount(working::)
+	 * @param acc
+	 * @return
+	 */
 	@PostMapping(value = "/addSavingAccount")
 	public ResponseEntity<?> addAccount(@RequestBody SavingAccount acc) {
 		try {

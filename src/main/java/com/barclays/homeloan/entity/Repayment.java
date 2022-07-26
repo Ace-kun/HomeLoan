@@ -4,10 +4,16 @@ import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 @Table
@@ -21,19 +27,26 @@ public class Repayment {
 	private LocalDate date;
 	
 	@Column
-	private int emi;
+	private float emi;
 	
 	@Column
-	private int pricipalamount;
+	private float principalamount;
 	
 	@Column
-	private int interestamount;
+	private float interestamount;
 	
 	@Column
-	private int outstanding;
+	private float outstanding;
 
 	@Column
 	private String status;
+	
+	@ManyToOne(fetch = FetchType.EAGER, optional = false)
+	@OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "loanId", nullable = false)
+	private Loan loanId;
+	
+	public Repayment() {}
 
 	public int getId() {
 		return id;
@@ -51,35 +64,35 @@ public class Repayment {
 		this.date = date;
 	}
 
-	public int getEmi() {
+	public float getEmi() {
 		return emi;
 	}
 
-	public void setEmi(int emi) {
+	public void setEmi(float emi) {
 		this.emi = emi;
 	}
 
-	public int getPricipalamount() {
-		return pricipalamount;
+	public float getPrincipalamount() {
+		return principalamount;
 	}
 
-	public void setPricipalamount(int pricipalamount) {
-		this.pricipalamount = pricipalamount;
+	public void setPrincipalamount(float principalamount) {
+		this.principalamount = principalamount;
 	}
 
-	public int getInterestamount() {
+	public float getInterestamount() {
 		return interestamount;
 	}
 
-	public void setInterestamount(int interestamount) {
+	public void setInterestamount(float interestamount) {
 		this.interestamount = interestamount;
 	}
 
-	public int getOutstanding() {
+	public float getOutstanding() {
 		return outstanding;
 	}
 
-	public void setOutstanding(int outstanding) {
+	public void setOutstanding(float outstanding) {
 		this.outstanding = outstanding;
 	}
 
@@ -91,20 +104,26 @@ public class Repayment {
 		this.status = status;
 	}
 
-	public Repayment(int id, LocalDate date, int emi, int pricipalamount, int interestamount, int outstanding,
-			String status) {
+	public Loan getLoanId() {
+		return loanId;
+	}
+
+	public void setLoanId(Loan loanId) {
+		this.loanId = loanId;
+	}
+
+	public Repayment(int id, LocalDate date, float emi, float principalamount, float interestamount, float outstanding,
+			String status, Loan loanId) {
 		super();
 		this.id = id;
 		this.date = date;
 		this.emi = emi;
-		this.pricipalamount = pricipalamount;
+		this.principalamount = principalamount;
 		this.interestamount = interestamount;
 		this.outstanding = outstanding;
 		this.status = status;
+		this.loanId = loanId;
 	}
-	
-	
-	
-	
 
+	
 }
