@@ -1,0 +1,18 @@
+Todo: 
+
+
+	vishaka ===> get loan by id  api
+	laxmi   ===> get all loans api
+		     get LoanApplication by id api
+	
+	hirak   ===> delete loan application by id api
+	
+	gaurav  ===> get all LoanAplication api 
+	
+	some extra api's:
+	
+	1> get all approved loan application
+	2> get all rejected loan application
+	3> get user by id
+	
+	
