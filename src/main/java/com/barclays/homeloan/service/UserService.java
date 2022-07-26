@@ -27,8 +27,8 @@ public class UserService {
 		newUser.setPassword(user.getPassword());
 		
 		return userRepository.save(newUser);
-		
-		
 	}
+
+
 
 }
