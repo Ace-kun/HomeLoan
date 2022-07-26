@@ -1,6 +1,7 @@
 package com.barclays.homeloan.service;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,22 @@ public class LoanApplicationService {
 	
 	@Autowired
 	private LoanRepository loanRepository;
+        public List<LoanApplication> getAllLoan() {
+		
+		return loanAppRepository.findAll();
+	}
+        public LoanApplication getLoanApplicationById(int id) {
 
+    		Optional<LoanApplication> loanApplication  = loanAppRepository.findById(id);
+
+    		return loanApplication.get();
+
+    	}
+       
+//        public List<LoanApplication> loanApplication(int id) {
+//    		
+//    		return loanAppRepository.findById(id);
+//    	}
 	public LoanApplication addrequest(LoanApplication req) {
 		
 		LoanApplication newApp = new LoanApplication();

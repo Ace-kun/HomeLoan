@@ -28,7 +28,18 @@ public class LoanApplicationController {
 	
 	@Autowired
 	LoanApplicationService loanAppService;
-	
+	@GetMapping(value = "/getLoan")
+	public ResponseEntity<?> findAll(){
+		//System.out.println("testtt");
+		try {
+			logger.info("api running !!");
+			return new ResponseEntity<>(loanAppService.getAllLoan(), HttpStatus.OK);
+		}
+		catch(Exception e){
+			logger.error("Error occurred while fetching all loan data: " + e.getMessage());
+            return new ResponseEntity<>("Error occurred while fetching all loan data", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 	
 	@PostMapping(value = "/apply")
 	public ResponseEntity<?>applyHomeLoan(@RequestBody LoanApplication req) {
@@ -48,6 +59,17 @@ public class LoanApplicationController {
 				return new ResponseEntity<>("LoanApplication with given Id not present", HttpStatus.BAD_REQUEST);
 			}
 			return new ResponseEntity<>(loanAppService.validate(id), HttpStatus.OK);
+		}
+		catch(Exception e){
+			logger.error("Error occurred validating: " + e.getMessage());
+            return new ResponseEntity<>("Error occurred while validating ", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	@GetMapping(value = "/loanApplication/{id}")
+	public ResponseEntity<?> loanApplication(@PathVariable int id){
+		try {
+			return new ResponseEntity<>(loanAppService.getLoanApplicationById(id), HttpStatus.OK);
+			
 		}
 		catch(Exception e){
 			logger.error("Error occurred validating: " + e.getMessage());
