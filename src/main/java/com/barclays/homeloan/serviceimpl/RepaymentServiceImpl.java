@@ -48,18 +48,14 @@ public class RepaymentServiceImpl implements RepaymentService {
 	@Override
 	public Repayment payEmi(int id) {
 		Loan loan = loanRepository.findById(id).get();
-
 		int savingAccountId = loan.getSavingAccount();
-
 		List<Repayment> lst = repayRepository.findByLoanIdAndStatus(loan, "Pending");
-
 		Repayment repay = lst.get(0);
 
 		SavingAccount acc = savingRepository.findById(savingAccountId).get();
 		float balance = acc.getBalance();
 		float deductAmount = repay.getEmi();
 		acc.setBalance(balance - deductAmount);
-
 		repay.setStatus("Paid");
 		repayRepository.save(repay);
 		savingRepository.save(acc);
@@ -72,17 +68,13 @@ public class RepaymentServiceImpl implements RepaymentService {
 		Loan loan = loanRepository.findById(id).get();
 
 		int savingAccountId = loan.getSavingAccount();
-
 		List<Repayment> paidList = repayRepository.findByLoanIdAndStatus(loan, "Paid");
-
 		if (paidList.size() < 3) {
 			return "Loan foreclosure forbidden !";
 		}
-
 		List<Repayment> unPaidEmiList = repayRepository.findByLoanIdAndStatus(loan, "Pending");
 		Repayment unPaidEmi = unPaidEmiList.get(0);
 		unPaidEmiList.remove(0);
-
 		int outstanding = (int) unPaidEmi.getOutstanding();
 		unPaidEmi.setInterestamount(0);
 		unPaidEmi.setPrincipalamount(0);
@@ -90,17 +82,14 @@ public class RepaymentServiceImpl implements RepaymentService {
 		unPaidEmi.setDate(LocalDate.now());
 		unPaidEmi.setStatus("Paid");
 		repayRepository.save(unPaidEmi);
-
 		for (Repayment r : unPaidEmiList) {
 			r.setStatus("Cancelled");
 			repayRepository.save(r);
 		}
-
 		SavingAccount acc = savingRepository.findById(savingAccountId).get();
 		float currBalance = acc.getBalance();
 		acc.setBalance(currBalance - outstanding);
 		savingRepository.save(acc);
-
 		loan.setStatus("Closed");
 		loanRepository.save(loan);
 
@@ -113,7 +102,6 @@ public class RepaymentServiceImpl implements RepaymentService {
 
 		int savingAccountId = loan.getSavingAccount();
 		SavingAccount savingAccount = savingRepository.findById(savingAccountId).get();
-
 		List<Repayment> lst = repayRepository.findByLoanIdAndStatus(loan, "Pending");
 		Repayment repay = lst.get(0);
 		if(lst.size()<months) {
@@ -121,21 +109,17 @@ public class RepaymentServiceImpl implements RepaymentService {
 		}
 		if(lst.size()==months) {
 			return "Please enter tenure between 3 and "+String.valueOf(loan.getTenure()-months);
-		}
-		
+		}	
 		float totalEmi = repay.getEmi()*months;
 		float interest = repay.getInterestamount();
 		float newOutstanding = repay.getOutstanding()+interest-totalEmi;
 		repay.setPrincipalamount(totalEmi-interest);
 		repay.setEmi(totalEmi);
 		repay.setStatus("Paid");
-		repayRepository.save(repay);
-		
+		repayRepository.save(repay);	
 		float balance = savingAccount.getBalance();
 		savingAccount.setBalance(balance-totalEmi);
 		savingRepository.save(savingAccount);
-		
-		
 		
 		lst.remove(0);
 		float newEmi = emiManager.CalculateEmi(newOutstanding,lst.size() );
@@ -148,7 +132,6 @@ public class RepaymentServiceImpl implements RepaymentService {
 			rp.setPrincipalamount(principal);
 			rp.setOutstanding(newOutstanding);
 			repayRepository.save(rp);
-			
 			newOutstanding = newOutstanding-principal;
 		
 		}

@@ -51,24 +51,18 @@ public class LoanApplicationServiceImpl implements LoanApplicationService {
 	public String validate(int id) {
 		
 		Optional<LoanApplication> newApp = loanAppRepository.findById(id);
-
 		if (newApp.isEmpty()) {
 			System.out.println("in");
 			return null;
 		}
-
 		LoanApplication app = newApp.get();
-
 		int monthlySalary = app.getMonthlySalary();
 		if (monthlySalary * 50 < app.getLoanAmount()) {
-
 			app.setStatus("Declined");
 			loanAppRepository.save(app);
 			return "Declined: loan should be less than monthlyincome*50";
 		}
-
 		app.setStatus("approved");
-
 		createLoan(app);
 
 		return "Loan Approved Successfully !!";
@@ -84,9 +78,7 @@ public class LoanApplicationServiceImpl implements LoanApplicationService {
 
 		SavingAccount savAcc = savingRep.findByEmail(app.getEmail());
 		newLoan.setSavingAccount(savAcc.getSeqId());
-
 		Loan savedLoan = loanRepository.save(newLoan);
-
 		app.setLoanId(savedLoan.getId());
 		loanAppRepository.save(app);
 
@@ -98,13 +90,10 @@ public class LoanApplicationServiceImpl implements LoanApplicationService {
 
 		float amt = loan.getLoanAmount();
 		int tenure = loan.getTenure();
-
 		float emi = emiManager.CalculateEmi(amt, tenure);
 		LocalDate date = LocalDate.now().plusMonths(1);
 		float rate = EmiManager.INTEREST;
-
 		for (int i = 0; i < tenure; i++) {
-
 			float interest = amt * rate;
 			float principal = emi - interest;
 			Repayment rp = new Repayment();
@@ -116,7 +105,6 @@ public class LoanApplicationServiceImpl implements LoanApplicationService {
 			rp.setStatus("Pending");
 			rp.setLoanId(loan);
 			repaymentRepository.save(rp);
-
 			amt = amt - principal;
 			date = date.plusMonths(1);
 

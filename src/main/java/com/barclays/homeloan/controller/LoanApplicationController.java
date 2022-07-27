@@ -17,6 +17,7 @@ import com.barclays.homeloan.entity.LoanApplication;
 import com.barclays.homeloan.repository.LoanApplicationRepository;
 import com.barclays.homeloan.service.LoanApplicationService;
 
+
 @RestController
 @RequestMapping("/application")
 public class LoanApplicationController {
