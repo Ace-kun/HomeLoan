@@ -76,7 +76,7 @@ public class LoanApplicationServiceImpl implements LoanApplicationService {
 		}
 		app.setStatus("approved");
 		String body = "Dear Account Holder, \n\t We are highly pleased to inform you that your application for a home loan of ₹ "+ app.getLoanAmount()+" has been approved by the bank."
-				+ "\nI hereby request you to please come by at our office to meet our Loan Officer, Mr. Abhishek Duklan, anytime during banking hours from Monday to Friday to complete all the formalities so that the loan amount can be credited to your account."
+				+ "\nI hereby request you to please come by at our office to meet our Loan Officer anytime during banking hours from Monday to Friday to complete all the formalities so that the loan amount can be credited to your account."
 				+ "\n\nLooking forward to see you.\n"
 				+ "\nThank you.\n"
 				+ "\nRegards,"

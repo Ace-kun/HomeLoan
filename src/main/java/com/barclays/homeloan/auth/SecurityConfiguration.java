@@ -39,7 +39,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.cors()
 				.disable()
 				.authorizeRequests()
-				.antMatchers("/user/token","/user/add","/saving/account/add**").permitAll()
+				.antMatchers("/user/token","/user/add","/saving/account/add**","/repay/emi/export/**").permitAll()
 				.anyRequest().authenticated()
 				.and()
 				.sessionManagement()

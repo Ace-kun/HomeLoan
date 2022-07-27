@@ -12,11 +12,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.assertj.core.internal.bytebuddy.matcher.ElementMatchers.is;
-import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -38,7 +38,7 @@ public class UserServiceTest {
         user.setPassword("123");
 
         Mockito.when(userRepository.save(user)).thenReturn(user);
-        //assertThat(userService.addAccount(user),equals(user));
+        assertEquals(userRepository.save(user), user);
     }
 
     @Test
@@ -60,7 +60,10 @@ public class UserServiceTest {
         userList.add(user1);
         userList.add(user2);
 
+
         Mockito.when(userService.getAllUsers()).thenReturn(userList);
+        
+        assertEquals(userService.getAllUsers().size(), 2);
 
     }
 }

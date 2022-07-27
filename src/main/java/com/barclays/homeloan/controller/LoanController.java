@@ -7,10 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.barclays.homeloan.constants.SystemConstants;
@@ -18,6 +15,7 @@ import com.barclays.homeloan.repository.LoanRepository;
 import com.barclays.homeloan.service.LoanService;
 
 @RestController
+@RequestMapping("/loan")
 public class LoanController {
 	
 	

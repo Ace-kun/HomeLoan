@@ -49,7 +49,7 @@ public class userController {
 	@Autowired
 	JwtUtil jwtUtil;
 	
-	@PostMapping(value = "/token")
+	@PostMapping(value = SystemConstants.GET_TOKEN)
 	public ResponseEntity<?> getToken(@RequestBody JwtReq jwtRequest){
 		try {
 			this.authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(jwtRequest.getUsername(), jwtRequest.getPassword()));
