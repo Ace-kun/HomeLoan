@@ -48,10 +48,11 @@ public class LoanApplicationController {
 	@GetMapping(value = SystemConstants.VALIDATE_HOME_LOAN)
 	public ResponseEntity<?> validateApplication(@PathVariable int id){
 		try {
-			if(loanAppService.validate(id)==null) {
+			String out = loanAppService.validate(id);
+			if(out==null) {
 				return new ResponseEntity<>("LoanApplication with given Id not present", HttpStatus.BAD_REQUEST);
 			}
-			return new ResponseEntity<>(loanAppService.validate(id), HttpStatus.OK);
+			return new ResponseEntity<>(out, HttpStatus.OK);
 		}
 		catch(Exception e){
 			logger.error("Error occurred validating: " + e.getMessage());
