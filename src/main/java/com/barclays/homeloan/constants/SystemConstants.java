@@ -23,5 +23,8 @@ public interface SystemConstants {
 	// Loan Application api...
 	public static final String  APPLY_HOME_LOAN = "/apply";
 	public static final String  VALIDATE_HOME_LOAN = "/validate/{id}";
+	public static final String  GET_HOME_LOAN = "/getLoan";
+	public static final String  GET_LOAN_APPLICATION_BY_ID = "/loanApplication/{id}";
+	
 	
 }

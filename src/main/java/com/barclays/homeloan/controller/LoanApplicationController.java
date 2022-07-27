@@ -59,6 +59,29 @@ public class LoanApplicationController {
             return new ResponseEntity<>("Error occurred while validating ", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+	@GetMapping(value = SystemConstants.GET_HOME_LOAN)
+	public ResponseEntity<?> findAll(){	
+		try {
+			logger.info("api running !!");
+			return new ResponseEntity<>(loanAppService.getAllLoan(), HttpStatus.OK);
+		}
+		catch(Exception e){
+			logger.error("Error occurred while fetching all loan data: " + e.getMessage());
+            return new ResponseEntity<>("Error occurred while fetching all loan data", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	@GetMapping(value = SystemConstants.GET_LOAN_APPLICATION_BY_ID)
+	public ResponseEntity<?> loanApplication(@PathVariable int id){
+		try {
+			return new ResponseEntity<>(loanAppService.getLoanApplicationById(id), HttpStatus.OK);
+			
+		}
+		catch(Exception e){
+			logger.error("Error occurred validating: " + e.getMessage());
+            return new ResponseEntity<>("No records found ", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 	
 
 }
