@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.barclays.homeloan.constants.SystemConstants;
 import com.barclays.homeloan.repository.LoanRepository;
 import com.barclays.homeloan.service.LoanService;
 
@@ -30,7 +31,7 @@ public class LoanController {
 	@Autowired
 	LoanService loanService;
 	
-	@GetMapping(value = "/getLoanDetails/{id}")
+	@GetMapping(value = SystemConstants.LOAN_BY_ID)
 	public ResponseEntity<?> findLoanById(@PathVariable int id){
 		try {
 			logger.info("api running !!");
