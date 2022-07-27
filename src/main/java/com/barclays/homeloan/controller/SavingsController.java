@@ -8,8 +8,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.barclays.homeloan.constants.SystemConstants;
 import com.barclays.homeloan.entity.SavingAccount;
 import com.barclays.homeloan.repository.SavingRepository;
 import com.barclays.homeloan.service.SavingService;
@@ -21,13 +23,8 @@ import com.barclays.homeloan.service.SavingService;
  *
  */
 @RestController
+@RequestMapping("/saving")
 public class SavingsController {
-
-	/**
-	 * logger
-	 */
-	private final Logger logger = LoggerFactory.getLogger(this.getClass());
-
 
 	
 	@Autowired
@@ -36,7 +33,12 @@ public class SavingsController {
 	@Autowired
 	SavingService savingService;
 	
-	@GetMapping(value = "/savingAccounts")
+	/**
+	 * logger
+	 */
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
+	
+	@GetMapping(value = SystemConstants.GET_ALL_ACCOUNT)
 	public ResponseEntity<?> findAll(){
 		try {
 			logger.info("api running !!");
@@ -53,7 +55,7 @@ public class SavingsController {
 	 * @param acc
 	 * @return
 	 */
-	@PostMapping(value = "/addSavingAccount")
+	@PostMapping(value = SystemConstants.ADD_SAVINGS_ACCOUNT)
 	public ResponseEntity<?> addAccount(@RequestBody SavingAccount acc) {
 		try {
 			return new ResponseEntity<>(savingService.addAccount(acc), HttpStatus.CREATED);

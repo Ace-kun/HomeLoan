@@ -17,14 +17,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.barclays.homeloan.constants.SystemConstants;
 import com.barclays.homeloan.entity.Repayment;
 import com.barclays.homeloan.repository.RepaymentRepository;
 import com.barclays.homeloan.service.RepaymentService;
 import com.barclays.homeloan.utils.TenureReqUtil;
 
 @RestController
+@RequestMapping("/repay")
 public class RepaymentController {
 	
 	
@@ -39,7 +42,7 @@ public class RepaymentController {
 	RepaymentService repayService;
 	
 	
-	@GetMapping(value = "/getEmi/{id}")
+	@GetMapping(value = SystemConstants.EMI_BY_ID)
 	public ResponseEntity<?> findEmiById(@PathVariable int id){
 		try {
 			logger.info("api running !!");
@@ -51,7 +54,7 @@ public class RepaymentController {
 		}
 	}
 	
-	@GetMapping("/getEmiList/export/{loan_id}")
+	@GetMapping(value=SystemConstants.EMI_TO_CSV)
     public void exportToCSV(HttpServletResponse response, @PathVariable int loan_id) throws IOException {
 		Writer writer = response.getWriter();
 
@@ -69,7 +72,7 @@ public class RepaymentController {
         }
     }
 	
-	@GetMapping(value = "/payEmi/{id}")
+	@GetMapping(value = SystemConstants.EMI_PAY)
 	public ResponseEntity<?> payEmi(@PathVariable int id){
 		try {
 			
@@ -81,7 +84,7 @@ public class RepaymentController {
 		}
 	}
 	
-	@GetMapping(value = "/forPay/{id}")
+	@GetMapping(value = SystemConstants.EMI_FOREPAY)
 	public ResponseEntity<?> forPayEmi(@PathVariable int id){
 		try {
 			
@@ -93,7 +96,7 @@ public class RepaymentController {
 		}
 	}
 	
-	@PostMapping(value = "/prePay/{id}")
+	@PostMapping(value = SystemConstants.EMI_PREPAY)
 	public ResponseEntity<?> prePayEmi(@PathVariable int id,@RequestBody TenureReqUtil req){
 		try {
 			

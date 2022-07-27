@@ -8,18 +8,20 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.barclays.homeloan.constants.SystemConstants;
 import com.barclays.homeloan.entity.User;
 import com.barclays.homeloan.repository.UserRepository;
 import com.barclays.homeloan.service.UserService;
 
 @RestController
+@RequestMapping("/user")
 public class userController {
 	
 	
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
-
 
 	
 	@Autowired
@@ -28,7 +30,7 @@ public class userController {
 	@Autowired
 	UserService userService;
 	
-	@GetMapping(value = "/users")
+	@GetMapping(value = SystemConstants.GET_ALL_USER)
 	public ResponseEntity<?> findAll(){
 		try {
 			logger.info("api running !!");
@@ -40,7 +42,7 @@ public class userController {
 		}
 	}
 	
-	@PostMapping(value = "/createUser")
+	@PostMapping(value = SystemConstants.ADD_USER)
 	public ResponseEntity<?> addAccount(@RequestBody User user) {
 		try {
 			return new ResponseEntity<>(userService.addAccount(user), HttpStatus.CREATED);
