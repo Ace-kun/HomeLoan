@@ -12,6 +12,7 @@ public interface SystemConstants {
 	// Users .....
 	public static final String  ADD_USER = "/add";
 	public static final String  GET_ALL_USER = "/users";
+	public static final String GET_USER_BY_ID="/users/{id}";
 	
 	// Repayment api...
 	public static final String  EMI_BY_ID = "/emi/{id}";
@@ -26,5 +27,8 @@ public interface SystemConstants {
 	public static final String  GET_HOME_LOAN = "/getLoan";
 	public static final String  GET_LOAN_APPLICATION_BY_ID = "/loanApplication/{id}";
 	
+	
+	//Loan api.....
+	public static final String LOAN_BY_ID="/loan/{id}";
 	
 }
