@@ -1,6 +1,7 @@
 package com.barclays.homeloan.serviceimpl;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -129,5 +130,20 @@ public class LoanApplicationServiceImpl implements LoanApplicationService {
 		}
 
 	}
+	
+	@Override
+	 public List<LoanApplication> getAllLoan() {
+			
+			return loanAppRepository.findAll();
+		}
+	
+	@Override
+	 public LoanApplication getLoanApplicationById(int id) {
+		
+		Optional<LoanApplication> loanApplication  = loanAppRepository.findById(id);
+
+		return loanApplication.get();
+
+		}
 
 }
