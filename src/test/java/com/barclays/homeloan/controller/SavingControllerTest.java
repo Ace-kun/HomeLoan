@@ -1,8 +1,7 @@
-package com.barclays.homeloan;
+package com.barclays.homeloan.controller;
 
 import com.barclays.homeloan.entity.SavingAccount;
-import com.barclays.homeloan.repository.SavingRepository;
-import com.barclays.homeloan.serviceimpl.SavingServiceImpl;
+import com.barclays.homeloan.service.SavingService;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -11,6 +10,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.HttpStatus;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -22,17 +22,16 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class SavingServiceTest {
-
-    private List<SavingAccount> savingAccountList;
-
-    private SavingAccount savingAccount;
-
-    @InjectMocks
-    SavingServiceImpl savingServiceImpl;
+public class SavingControllerTest {
 
     @Mock
-    SavingRepository savingRepository;
+    SavingService savingService;
+
+    @InjectMocks
+    SavingsController savingsController;
+
+    private List<SavingAccount> savingAccountList;
+    private SavingAccount savingAccount;
 
     @BeforeAll
     public void setUp(){
@@ -46,16 +45,17 @@ public class SavingServiceTest {
     }
 
     @Test
-    @DisplayName(value = "Getting All saving Accounts")
-    public void testGetAllAccounts(){
-        when(savingRepository.findAll()).thenReturn(savingAccountList);
-        assertEquals(3,savingServiceImpl.getAllAccounts().size());
+    @DisplayName(value = "Get All Savings Account")
+    public void testFindAll(){
+        when(savingService.getAllAccounts()).thenReturn(savingAccountList);
+        assertEquals(HttpStatus.OK,savingsController.findAll().getStatusCode());
     }
 
     @Test
-    @DisplayName(value = "Adding a Saving Account")
+    @DisplayName(value = "Saving Account")
     public void testAddAccount(){
-        when(savingRepository.save(any(SavingAccount.class))).thenReturn(savingAccount);
-        assertEquals("ace",savingServiceImpl.addAccount(savingAccount).getName());
+        when(savingService.addAccount(any(SavingAccount.class))).thenReturn(savingAccount);
+        assertEquals(HttpStatus.CREATED,savingsController.addAccount(savingAccount).getStatusCode());
     }
+
 }

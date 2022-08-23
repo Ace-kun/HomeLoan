@@ -4,6 +4,7 @@ public class TenureReqUtil {
 	
 	int months;
 
+
 	public int getMonths() {
 		return months;
 	}
@@ -11,7 +12,8 @@ public class TenureReqUtil {
 	public void setMonths(int months) {
 		this.months = months;
 	}
-	
-	
-	
+
+	public TenureReqUtil(int months) {
+		this.months = months;
+	}
 }

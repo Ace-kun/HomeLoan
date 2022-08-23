@@ -1,4 +1,4 @@
-package com.barclays.homeloan;
+package com.barclays.homeloan.service;
 
 
 import com.barclays.homeloan.entity.User;
