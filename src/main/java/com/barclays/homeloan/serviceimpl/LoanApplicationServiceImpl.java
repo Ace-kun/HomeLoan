@@ -56,7 +56,7 @@ public class LoanApplicationServiceImpl implements LoanApplicationService {
 	public String validate(int id) {
 		
 		Optional<LoanApplication> newApp = loanAppRepository.findById(id);
-		if (newApp.isEmpty()) {
+		if (newApp==null) {
 			System.out.println("in");
 			return null;
 		}

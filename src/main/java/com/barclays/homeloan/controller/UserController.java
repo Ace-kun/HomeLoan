@@ -28,7 +28,7 @@ import com.barclays.homeloan.utils.JwtResponse;
 
 @RestController
 @RequestMapping("/user")
-public class userController {
+public class UserController {
 	
 	
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
