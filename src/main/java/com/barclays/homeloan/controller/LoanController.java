@@ -32,7 +32,6 @@ public class LoanController {
 	@GetMapping(value = SystemConstants.LOAN_BY_ID)
 	public ResponseEntity<?> findLoanById(@PathVariable int id){
 		try {
-			logger.info("api running !!");
 			return new ResponseEntity<>(loanService.getLoanById(id), HttpStatus.OK);
 		}
 		catch(Exception e){

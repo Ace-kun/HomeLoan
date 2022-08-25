@@ -2,6 +2,7 @@ package com.barclays.homeloan.serviceimpl;
 
 import java.util.Optional;
 
+import com.barclays.homeloan.exceptions.LoanNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,9 +19,10 @@ public class LoanServiceImpl implements LoanService {
 	@Override
 	public Loan getLoanById(int id) {
 
-		Optional<Loan> loan = loanRepository.findById(id);
+		Loan loan = loanRepository.findById(id).
+				orElseThrow(()->new LoanNotFoundException(id));
 
-		return loan.get();
+		return loan;
 
 	}
 }

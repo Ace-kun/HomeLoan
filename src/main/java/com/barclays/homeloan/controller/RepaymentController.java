@@ -45,7 +45,6 @@ public class RepaymentController {
 	@GetMapping(value = SystemConstants.EMI_BY_ID)
 	public ResponseEntity<?> findEmiById(@PathVariable int id){
 		try {
-			logger.info("api running !!");
 			return new ResponseEntity<>(repayService.getEmiById(id), HttpStatus.OK);
 		}
 		catch(Exception e){

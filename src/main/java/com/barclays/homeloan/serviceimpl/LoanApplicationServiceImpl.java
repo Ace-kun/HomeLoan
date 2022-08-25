@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+import com.barclays.homeloan.exceptions.LoanApplicationNotFound;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -55,12 +56,10 @@ public class LoanApplicationServiceImpl implements LoanApplicationService {
 	@Override
 	public String validate(int id) {
 		
-		Optional<LoanApplication> newApp = loanAppRepository.findById(id);
-		if (newApp==null) {
-			System.out.println("in");
-			return null;
-		}
-		LoanApplication app = newApp.get();
+		LoanApplication newApp = loanAppRepository.findById(id).
+				orElseThrow(()->new LoanApplicationNotFound(id));
+
+		LoanApplication app = newApp;
 		int monthlySalary = app.getMonthlySalary();
 		if (monthlySalary * 50 < app.getLoanAmount()) {
 			app.setStatus("Declined");
@@ -140,9 +139,10 @@ public class LoanApplicationServiceImpl implements LoanApplicationService {
 	@Override
 	 public LoanApplication getLoanApplicationById(int id) {
 		
-		Optional<LoanApplication> loanApplication  = loanAppRepository.findById(id);
+		LoanApplication loanApplication  = loanAppRepository.findById(id).
+				orElseThrow(()->new LoanApplicationNotFound(id));
 
-		return loanApplication.get();
+		return loanApplication;
 
 		}
 

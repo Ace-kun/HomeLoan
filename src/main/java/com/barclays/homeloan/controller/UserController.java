@@ -93,7 +93,6 @@ public class UserController {
 	@GetMapping(value = SystemConstants.GET_ALL_USER)
 	public ResponseEntity<?> findAll(){
 		try {
-			logger.info("api running !!");
 			return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.OK);
 		}
 		catch(Exception e){

@@ -2,6 +2,7 @@ package com.barclays.homeloan.service;
 
 
 import com.barclays.homeloan.entity.User;
+import com.barclays.homeloan.exceptions.UserNotFoundException;
 import com.barclays.homeloan.repository.UserRepository;
 import com.barclays.homeloan.serviceimpl.UserServiceImpl;
 import org.junit.jupiter.api.*;
@@ -17,8 +18,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -79,6 +79,8 @@ public class UserServiceTest {
                 ()->assertEquals(1,userServiceImpl.getUserById(1).getId()),
                 ()->assertEquals(2,userServiceImpl.getUserById(2).getId()),
                 ()->assertEquals(3,userServiceImpl.getUserById(3).getId()));
+
+        assertThrows(UserNotFoundException.class,()->userServiceImpl.getUserById(4));
     }
 
 }

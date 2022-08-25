@@ -1,6 +1,7 @@
 package com.barclays.homeloan.service;
 
 import com.barclays.homeloan.entity.Loan;
+import com.barclays.homeloan.exceptions.LoanNotFoundException;
 import com.barclays.homeloan.repository.LoanRepository;
 import com.barclays.homeloan.serviceimpl.LoanServiceImpl;
 import org.junit.jupiter.api.BeforeAll;
@@ -15,6 +16,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -39,6 +41,7 @@ public class LoanServiceTest {
     public void testGetLoanById(){
         when(loanRepository.findById(1)).thenReturn(Optional.ofNullable(loan));
         assertEquals(1,loanServiceImpl.getLoanById(1).getId());
+        assertThrows(LoanNotFoundException.class,()->loanServiceImpl.getLoanById(2));
     }
 }
 

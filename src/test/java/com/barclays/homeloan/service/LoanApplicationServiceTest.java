@@ -5,6 +5,7 @@ import com.barclays.homeloan.entity.Loan;
 import com.barclays.homeloan.entity.LoanApplication;
 import com.barclays.homeloan.entity.Repayment;
 import com.barclays.homeloan.entity.SavingAccount;
+import com.barclays.homeloan.exceptions.LoanApplicationNotFound;
 import com.barclays.homeloan.repository.LoanApplicationRepository;
 import com.barclays.homeloan.repository.LoanRepository;
 import com.barclays.homeloan.repository.RepaymentRepository;
@@ -22,6 +23,7 @@ import java.time.LocalDate;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -106,6 +108,13 @@ public class LoanApplicationServiceTest {
             assertEquals("Declined: loan should be less than monthlyincome*50",loanApplicationServiceImpl.validate(2));
         }
 
+        @Test
+        @DisplayName(value = "Id not Found Exception")
+        public void testValidateException(){
+            assertThrows(LoanApplicationNotFound.class,
+                    ()->loanApplicationServiceImpl.validate(2));
+        }
+
     }
 
     @Test
@@ -119,6 +128,10 @@ public class LoanApplicationServiceTest {
     @DisplayName(value = "Get Loan Application by Id")
     public void testGetLoanApplicationById(){
         when(loanApplicationRepository.findById(1)).thenReturn(Optional.ofNullable(loanApp.get(0)));
-        assertEquals(1,loanApplicationServiceImpl.getLoanApplicationById(1).getId());
+        assertEquals(1,
+                loanApplicationServiceImpl.getLoanApplicationById(1).getId());
+
+        assertThrows(LoanApplicationNotFound.class,
+                ()->loanApplicationServiceImpl.getLoanApplicationById(2));
     }
 }

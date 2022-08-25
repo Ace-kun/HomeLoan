@@ -41,7 +41,6 @@ public class SavingsController {
 	@GetMapping(value = SystemConstants.GET_ALL_ACCOUNT)
 	public ResponseEntity<?> findAll(){
 		try {
-			logger.info("api running !!");
 			return new ResponseEntity<>(savingService.getAllAccounts(), HttpStatus.OK);
 		}
 		catch(Exception e){

@@ -48,11 +48,7 @@ public class LoanApplicationController {
 	@GetMapping(value = SystemConstants.VALIDATE_HOME_LOAN)
 	public ResponseEntity<?> validateApplication(@PathVariable int id){
 		try {
-			String out = loanAppService.validate(id);
-			if(out==null) {
-				return new ResponseEntity<>("LoanApplication with given Id not present", HttpStatus.BAD_REQUEST);
-			}
-			return new ResponseEntity<>(out, HttpStatus.OK);
+			return new ResponseEntity<>(loanAppService.validate(id), HttpStatus.OK);
 		}
 		catch(Exception e){
 			logger.error("Error occurred validating: " + e.getMessage());
@@ -62,7 +58,6 @@ public class LoanApplicationController {
 	@GetMapping(value = SystemConstants.GET_HOME_LOAN)
 	public ResponseEntity<?> findAll(){	
 		try {
-			logger.info("api running !!");
 			return new ResponseEntity<>(loanAppService.getAllLoan(), HttpStatus.OK);
 		}
 		catch(Exception e){
